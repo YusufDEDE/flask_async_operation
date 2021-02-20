@@ -24,6 +24,8 @@ class CrudAction:
                 record = db.session.query(self.models).filter_by(**custom_filter)
             else:
                 record = self.models.query.all()
+
+            log_file_handle(" CrudAction(Read) SUCCESS.. ")
             return record
         except Exception as ex:
             log_file_handle(" CrudAction(Read) ERROR: " + str(ex))

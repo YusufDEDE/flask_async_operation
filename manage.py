@@ -1,11 +1,10 @@
-from app import create_app
-
-
-from flask_script import Manager, Command
 from time import sleep
-from app.utils.crud_actions import CrudAction
+from app import create_app
 from app.models import Task
+from flask_script import Manager, Command
+from app.utils.crud_actions import CrudAction
 from app.jobs import create_task_record, list_task_record, delete_task_record
+from rq.cli import cli
 
 crud_action = CrudAction(Task)
 
@@ -36,6 +35,11 @@ def delete(task_id):
     record = delete_task_record.queue(task_id)
     sleep(2)
     print(record.result)
+
+
+@manager.command
+def q_lists():
+    print(cli.resume())
 
 
 if __name__ == "__main__":
