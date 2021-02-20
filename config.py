@@ -16,3 +16,6 @@ class Config:
     SQLALCHEMY_DATABASE_URI = environ.get("SQLALCHEMY_DATABASE_URI")
     SQLALCHEMY_ECHO = False
     SQLALCHEMY_TRACK_MODIFICATIONS = False
+
+    # RQ_Redis
+    RQ_REDIS_URL = environ.get("RQ_REDIS_URL")

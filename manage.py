@@ -1,42 +1,41 @@
 from app import create_app
-from app.models import Task
-from tabulate import tabulate
-from datetime import datetime as dt
-from app.utils.crud_actions import CrudAction
-from flask_script import Manager, Command
 
+
+from flask_script import Manager, Command
+from time import sleep
+from app.utils.crud_actions import CrudAction
+from app.models import Task
+from app.jobs import create_task_record, list_task_record, delete_task_record
 
 crud_action = CrudAction(Task)
+
 app = create_app()
 manager = Manager(app)
 
 
 @manager.command
-def create_task(name, priority):
-    result = crud_action.create({
-        'name': name,
-        'priority': priority,
-        'status': 'adad',
-        'created': dt.now(),
-    })
-
-    print(result)
+def create(name, priority):
+    new_record = create_task_record.queue(
+        name,
+        priority
+    )
+    sleep(2)
+    print(new_record.result)
 
 
 @manager.command
-def list_task():
-    tasks = crud_action.read()
-    table = []
-    for task in tasks:
-        table.append([task.id, task.name, task.priority, task.status, task.created])
-
-    print(tabulate(table, headers=["#", "Name", "Priority", "Status", "Created"]))
+def lists():
+    print("List Task Loading..")
+    _lists = list_task_record.queue()
+    sleep(2)
+    print(_lists.result)
 
 
 @manager.command
-def delete_task(task_id):
-    result = crud_action.delete(task_id)
-    print(result)
+def delete(task_id):
+    record = delete_task_record.queue(task_id)
+    sleep(2)
+    print(record.result)
 
 
 if __name__ == "__main__":

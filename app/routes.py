@@ -1,11 +1,10 @@
 """Application routes."""
+from .models import Task
 from datetime import datetime as dt
-
 from flask import current_app as app
+from .utils.crud_actions import CrudAction
 from flask import make_response, redirect, render_template, request, url_for
 
-from .models import Task, db
-from .utils.crud_actions import CrudAction
 
 crud_action = CrudAction(Task)
 
@@ -13,7 +12,7 @@ crud_action = CrudAction(Task)
 @app.route("/", methods=["GET"])
 def task_records():
     name = request.args.get("user")
-    priority = request.args.get("email")
+    priority = request.args.get("priority")
     if name and priority:
         existing_task = Task.query.filter(
             Task.name == name or Task.priority == priority
