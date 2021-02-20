@@ -13,6 +13,8 @@ class CrudAction:
             db.session.add(record)
             db.session.commit()
             log_file_handle(" CrudAction(Create) SUCCESS: " + str(record))
+
+            return str(record)  + ' record created..'
         except Exception as ex:
             log_file_handle(" CrudAction(Create) ERROR: " + str(ex))
 
@@ -32,8 +34,15 @@ class CrudAction:
         except Exception as ex:
             log_file_handle(" CrudAction(Update) ERROR: " + str(ex))
 
-    def delete(self):
+    def delete(self, record_id):
         try:
-            pass
+            record = self.read({'id': record_id}).one()
+            log_file_handle(" CrudAction(Delete) SUCCESS: " + str(record))
+            db.session.delete(record)
+            db.session.commit()
+
+            return record
         except Exception as ex:
+            # TODO fix
             log_file_handle(" CrudAction(Delete) ERROR: " + str(ex))
+            return str(record_id + ' id Record exist!')
