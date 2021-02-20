@@ -19,7 +19,7 @@ $ rqworker
 
 - create --name --priority
 ```shell script
-$ python manage.py create_task "System BugBounty Date" "high"
+$ python manage.py create "System BugBounty Date" "high"
 ```
 - lists
 ```shell script
@@ -27,5 +27,5 @@ $ python manage.py lists
 ```
 - delete --id
 ```shell script
-$ python manage.py 2
+$ python manage.py delete 2
 ```
