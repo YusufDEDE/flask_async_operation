@@ -7,6 +7,7 @@
 
 > install
 ```shell script
+$ touch .env # look .env-example
 $ pip install -r requirements
 ```
 > run 

@@ -11,7 +11,7 @@ crud_action = CrudAction(Task)
 
 @app.route("/", methods=["GET"])
 def task_records():
-    name = request.args.get("user")
+    name = request.args.get("name")
     priority = request.args.get("priority")
     if name and priority:
         existing_task = Task.query.filter(
