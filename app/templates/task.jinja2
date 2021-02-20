@@ -1,0 +1,27 @@
+{% extends "layout.jinja2" %}
+
+{% block content %}
+  <div class="container">
+    <h1>Flask Async Operation | Task List</h1>
+    {% for task in tasks %}
+      <ul id="task_{{ task.id }}">
+        <li>
+          <span class="field-name">Name:</span>
+          <span class="field-value">{{ task.name }}</span>
+        </li>
+        <li>
+          <span class="field-name">Priority:</span>
+          <span class="field-value">{{ task.priority }}</span>
+        </li>
+        <li>
+          <span class="field-name">Status:</span>
+          <span class="field-value">{{ task.status }}</span>
+        </li>
+        <li>
+          <span class="field-name">Created:</span>
+          <span class="field-value">{{ task.created }}</span>
+        </li>
+      </ul>
+    {% endfor %}
+  </div>
+{% endblock %}
