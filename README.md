@@ -14,18 +14,18 @@ $ pip install -r requirements
 $ python run.py
 $ rqworker
 ```
+---
+##### usage CLI, task operation
 
-> usage CLI, task operation
-
-- create --name --priority
+> create --name --priority
 ```shell script
 $ python manage.py create "System BugBounty Date" "high"
 ```
-- lists
+> lists
 ```shell script
 $ python manage.py lists
 ```
-- delete --id
+> delete --id
 ```shell script
 $ python manage.py delete 2
 ```

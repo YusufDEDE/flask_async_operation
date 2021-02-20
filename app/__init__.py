@@ -1,6 +1,6 @@
 from flask import Flask
-from flask_sqlalchemy import SQLAlchemy
 from flask_rq2 import RQ
+from flask_sqlalchemy import SQLAlchemy
 
 rq = RQ()
 db = SQLAlchemy()
