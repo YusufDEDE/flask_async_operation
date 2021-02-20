@@ -5,6 +5,9 @@ from flask import current_app as app
 from flask import make_response, redirect, render_template, request, url_for
 
 from .models import Task, db
+from .utils.crud_actions import CrudAction
+
+crud_action = CrudAction(Task)
 
 
 @app.route("/", methods=["GET"])
@@ -17,13 +20,13 @@ def task_records():
         ).first()
         if existing_task:
             return make_response(f"{name} ({priority}) already created!")
-        new_task = Task(
-            name=name,
-            priority=priority,
-            status="True",
-            created=dt.now(),
-        )  # Create an instance of the User class
-        db.session.add(new_task)  # Adds new User record to database
-        db.session.commit()  # Commits all changes
+
+        crud_action.create({
+            'name': name,
+            'priority': priority,
+            'status': 'True',
+            'created': dt.now(),
+        })
+
         redirect(url_for("task_records"))
-    return render_template("task.jinja2", tasks=Task.query.all(), title="Show Task")
+    return render_template("task.jinja2", tasks=crud_action.read(), title="Show Task")
