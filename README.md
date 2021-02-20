@@ -1,4 +1,4 @@
-# Flask Async Operatiom
+# Flask Async Operation
 
 > System Requirements
 - redis
